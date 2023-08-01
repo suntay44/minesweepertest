@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root 'minesweeper_boards#index'
+  post 'generate_board', to: 'minesweeper_boards#generate'
+  get 'boards/:id', to: 'minesweeper_boards#show', as: :board
+  get 'boards', to: 'minesweeper_boards#new', as: :boards
 end

@@ -1,0 +1,46 @@
+
+<h2>Welcome!</h2>
+<p>Generate your Minesweeper board:</p>
+
+<%= form_with(model: @minesweeper_board, url: generate_board_path, method: :post) do |form| %>
+  <div class="row mb-3">
+    <div class="col">
+      <%= form.label :email %>
+      <%= form.email_field :email, class: "form-control" %>
+    </div>
+    <div class="col">
+      <%= form.label :board_name %>
+      <%= form.text_field :board_name, class: "form-control" %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col">
+      <%= form.label :board_width %>
+      <%= form.number_field :width, class: "form-control" %>
+    </div>
+    <div class="col">
+      <%= form.label :board_height %>
+      <%= form.number_field :height, class: "form-control" %>
+    </div>
+    <div class="col">
+      <%= form.label :mines %>
+      <%= form.number_field :mines, class: "form-control" %>
+    </div>
+  </div>
+  <%= form.submit "Generate Board", class: "btn btn-primary" %>
+<% end %>
+</br>
+<% if @recent_boards.present? %>
+  <h3>Top <%= @recent_boards.count %> Recent Boards</h3>
+  <ul class="list-group">
+    <% @recent_boards.first(10).each do |board| %>
+      <li class="list-group-item">
+        <%= link_to board.board_name, board_path(board) %>
+        - <%= board.email %> (Created at: <%= board.created_at.strftime('%B %d, %Y') %>)
+      </li>
+    <% end %>
+  </ul>
+  <%= link_to "View All Generated Boards", boards_path, class: "btn btn-primary mt-3" %>
+<% else %>
+  <p>No recent boards yet.</p>
+<% end %>

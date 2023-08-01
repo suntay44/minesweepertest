@@ -1,0 +1,12 @@
+<div class="container">
+  Total(<%= @recent_boards.count %>)
+  <h2>Lists of Minesweeper Boards </h2>
+  <ul class="list-group">
+    <% @recent_boards.each do |board| %>
+      <li class="list-group-item">
+        <%= link_to board.board_name, board_path(board) %>
+        - <%= board.email %> (Created at: <%= board.created_at.strftime('%B %d, %Y') %>)
+      </li>
+    <% end %>
+  </ul>
+</div>
